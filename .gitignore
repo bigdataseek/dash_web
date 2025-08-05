@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+
+# Editor/IDE specific
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Installer logs/temp files
+*.manifest
+*.spec
+
+# Test-related files
+.pytest_cache/
+htmlcov/
+
+# Dependency management files (often committed, but can be ignored if desired)
+# Pipfile.lock
+# poetry.lock
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Temporary or log files
+*.log
+*.tmp
