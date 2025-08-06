@@ -1,36 +1,20 @@
-from dash import Dash, html, dcc, Input, Output
-import plotly.express as px
+import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 # 데이터 로드
 df = px.data.gapminder()
-# Dash 애플리케이션 생성
-app = Dash(__name__)
 
-# Layout 정의: 그래프 추가
-app.layout = html.Div(
-	style={'padding':'20px', 'font-family':'Arial'}, 
-	children=[
-		html.H1('국가별 GDP 변화' ,style={'color':'blue'}),
-		dcc.Dropdown(
-			id='country-dropdown',
-			options=[{'label':country, 'value':country} for country in df['country'].unique()],
-			value='Canada',
-			style={'width':'50%', 'margin-bottom':'20px'}
-		),
-		dcc.Graph(id='gdp-graph')
-	])
+# 제목 표시
+st.title("국가별 GDP 변화")
 
+# 드롭다운 메뉴
+country_list = df["country"].unique()
+selected_country = st.selectbox("국가를 선택하세요:", country_list)
 
-@app.callback(
-	Output('gdp-graph', 'figure'),
-	Input('country-dropdown','value')
-)
-def udpate_graph(selected_country):
-	filtered_df = df[df['country']==selected_country]
-	fig = px.line(filtered_df, x='year', y='gdpPercap', title=f'{selected_country}의 GDP 변화')
-	return fig
+# 데이터 필터링
+filtered_df = df[df["country"] == selected_country]
 
-
-if __name__ == '__main__':
-	app.run(debug=True)
+# 그래프 생성
+fig = px.line(filtered_df, x="year", y="gdpPercap", title=f"{selected_country}의 GDP 변화")
+st.plotly_chart(fig)
